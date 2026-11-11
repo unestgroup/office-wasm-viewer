@@ -1,0 +1,254 @@
+{
+ "fonts": {
+  "Gelasio": {
+   "files": {
+    "Regular": "Gelasio-Regular.ttf",
+    "Bold": "Gelasio-Bold.ttf",
+    "Italic": "Gelasio-Italic.ttf",
+    "BoldItalic": "Gelasio-BoldItalic.ttf"
+   },
+   "aliases": [
+    "Georgia"
+   ],
+   "cloneFrom": "Tinos",
+   "note": "metric-compatible with Georgia",
+   "sources": [
+    "gelasio\\Gelasio[wght].ttf",
+    "gelasio\\Gelasio-Italic[wght].ttf"
+   ],
+   "sha256": {
+    "Regular": "f229c5472973a1716df08120b79fdf9046dfb882910fb9fa73131c0539af5b26",
+    "Bold": "7d369a61edb199ed0dba155678e1d7823b99167f0a3e8550d8b1ca4b314437af",
+    "Italic": "e07b91c2cc6ea68d0af4f6f5cfebae7f8ee1687891458e894752c63ca12ca5dc",
+    "BoldItalic": "da1ea80cfbd2265e9555cfaae309b83ac1ac905fec81cf08a7ce6e5e6676f2b7"
+   }
+  },
+  "EB Garamond": {
+   "files": {
+    "Regular": "EBGaramond-Regular.ttf",
+    "Bold": "EBGaramond-Bold.ttf",
+    "Italic": "EBGaramond-Italic.ttf",
+    "BoldItalic": "EBGaramond-BoldItalic.ttf"
+   },
+   "aliases": [
+    "Garamond"
+   ],
+   "cloneFrom": "Tinos",
+   "note": "Garamond revival, about 5% wider than Monotype Garamond",
+   "sources": [
+    "ebg\\EBGaramond[wght].ttf",
+    "ebg\\EBGaramond-Italic[wght].ttf"
+   ],
+   "sha256": {
+    "Regular": "7b30b543ac1f9fde4cc3728a948263a67a3a18d54fbeabd81c70e1e59cdb667b",
+    "Bold": "c7cb5034ac6ee804b7f8c2b0a921d07c458bb9f259cac212a1cc19e4311f6fb5",
+    "Italic": "3e12b35baf1e57fea619765a06bd66b69b9486997379b9a19afa5f7b471140f2",
+    "BoldItalic": "d34212fdd8239753afd1bdf1b6358900ad5f76b6b99fdabcd61ecd0bdf09f0ee"
+   }
+  },
+  "WasmPagella": {
+   "files": {
+    "Regular": "WasmPagella-Regular.ttf",
+    "Bold": "WasmPagella-Bold.ttf",
+    "Italic": "WasmPagella-Italic.ttf",
+    "BoldItalic": "WasmPagella-BoldItalic.ttf"
+   },
+   "aliases": [
+    "Palatino Linotype",
+    "Book Antiqua"
+   ],
+   "cloneFrom": "Tinos",
+   "note": "TeX Gyre Pagella (Palatino metrics)",
+   "sources": [
+    "gyre/texgyrepagella-*.otf"
+   ],
+   "sha256": {
+    "Regular": "11cfb654a488fe0a0aed4dd875d9c16f53f0ab267a271d38bf9fe47f6a72023d",
+    "Bold": "0266ecad9ff1796fc92e3ae5edf776f537197b83902610d4e732cc8f84519537",
+    "Italic": "196d3e0d2e4c7e7eb0b2440317956b2dce82a00878b336c6891a0712ff20f49c",
+    "BoldItalic": "a1197da6fc17a71a97da676a1a426b3c63cd9b2e6f1b4f4263dc07776d3aaf68"
+   }
+  },
+  "WasmAdventor": {
+   "files": {
+    "Regular": "WasmAdventor-Regular.ttf",
+    "Bold": "WasmAdventor-Bold.ttf",
+    "Italic": "WasmAdventor-Italic.ttf",
+    "BoldItalic": "WasmAdventor-BoldItalic.ttf"
+   },
+   "aliases": [
+    "Century Gothic"
+   ],
+   "cloneFrom": "Arimo",
+   "note": "TeX Gyre Adventor (Avant Garde metrics, as Century Gothic)",
+   "sources": [
+    "gyre/texgyreadventor-*.otf"
+   ],
+   "sha256": {
+    "Regular": "5fea5c879ed436c9bc47a64e0032ade603bc44e32a445db68ebfa43a4b6d6adf",
+    "Bold": "c8549e73ce237305dab9f37ef0cfaf2fee8ad773001f79329e0d20113c18d90d",
+    "Italic": "6cee9271fc87ac8129173c3af7d1fe4883cea941f66ad1f2ed69a7322e484cf1",
+    "BoldItalic": "d26f7e2b6963d476de764b40b4cff64ff0c8a70aa9903bab4fb64444621f59d4"
+   }
+  },
+  "WasmUI": {
+   "files": {
+    "Regular": "WasmUI-Regular.ttf",
+    "Bold": "WasmUI-Bold.ttf"
+   },
+   "aliases": [
+    "Segoe UI"
+   ],
+   "cloneFrom": "Arimo",
+   "note": "Selawik (metric-compatible with Segoe UI) + Vietnamese letters from Roboto; no italic",
+   "sources": [
+    "selawik/s.zip",
+    "pack:Roboto"
+   ],
+   "sha256": {
+    "Regular": "96aec473eb30f65d45c4c42d5cecd5f76a69d921a9dea3a603c3b13fcf3c5bf6",
+    "Bold": "a8097b891d4cc056463ae28a2b82ba5c9997901112d9514d1a695e79eb64ac0e"
+   }
+  },
+  "WasmUI Light": {
+   "files": {
+    "Regular": "WasmUILight-Regular.ttf"
+   },
+   "aliases": [
+    "Segoe UI Light"
+   ],
+   "cloneFrom": "Arimo",
+   "note": "Selawik Light + Vietnamese letters from Roboto Light",
+   "sources": [
+    "selawik/s.zip",
+    "pack:Roboto"
+   ],
+   "sha256": {
+    "Regular": "03f68ee7fafbbe4151d1635c33e1d0cfcb34cb2ce9d2f443df5570d185b55799"
+   }
+  },
+  "WasmUI Semibold": {
+   "files": {
+    "Regular": "WasmUISemibold-Regular.ttf"
+   },
+   "aliases": [
+    "Segoe UI Semibold"
+   ],
+   "cloneFrom": "Arimo",
+   "note": "Selawik Semibold + Vietnamese letters from Roboto Bold",
+   "sources": [
+    "selawik/s.zip",
+    "pack:Roboto"
+   ],
+   "sha256": {
+    "Regular": "67f0469de5ad065552fe09d374b1f0dcf99995652d27bc675fe43fc3f48ac0f0"
+   }
+  },
+  "WasmNarrow": {
+   "files": {
+    "Regular": "WasmNarrow-Regular.ttf",
+    "Bold": "WasmNarrow-Bold.ttf",
+    "Italic": "WasmNarrow-Italic.ttf",
+    "BoldItalic": "WasmNarrow-BoldItalic.ttf"
+   },
+   "aliases": [
+    "Arial Narrow"
+   ],
+   "cloneFrom": "Arimo",
+   "note": "Liberation Sans Narrow 1.07.4 (metric-compatible with Arial Narrow) + Vietnamese letters from Arimo",
+   "sources": [
+    "deb107b/fonts-liberation_1.07.4-11_all.deb",
+    "pack:Arimo"
+   ],
+   "sha256": {
+    "Regular": "744004c739f1000388b6a5c56d9079548c5a9de076e563a8686e56bab184936d",
+    "Bold": "abdb6af9e1f1b8ef0f91e453c8598d1b82db43a30f0df990fc179fd4694fb1f1",
+    "Italic": "3c34f96801370fad8beefeeab7631239e42054a5cb063f94dec10471cb648a9e",
+    "BoldItalic": "c32dfefeb694c2536f4524176b25fc7765502be233b9ce43901cebdcf15c8da4"
+   }
+  },
+  "WasmComic": {
+   "files": {
+    "Regular": "WasmComic-Regular.ttf",
+    "Bold": "WasmComic-Bold.ttf"
+   },
+   "aliases": [
+    "Comic Sans MS"
+   ],
+   "cloneFrom": "Arimo",
+   "note": "Comic Relief (metric-compatible with Comic Sans MS) + Vietnamese letters from Arimo; no italic",
+   "sources": [
+    "comic/ComicRelief-*.ttf",
+    "pack:Arimo"
+   ],
+   "sha256": {
+    "Regular": "11cd97c9b3c263ef4adb2779500af1659c7624aca18b4cd6ff3c8bd646175cc5",
+    "Bold": "b887df79f2f35ee919e71d4f3bb23720a782885df05980dace87825b8046933e"
+   }
+  },
+  "WasmCaladea": {
+   "files": {
+    "Regular": "WasmCaladea-Regular.ttf",
+    "Bold": "WasmCaladea-Bold.ttf",
+    "Italic": "WasmCaladea-Italic.ttf",
+    "BoldItalic": "WasmCaladea-BoldItalic.ttf"
+   },
+   "aliases": [
+    "Cambria",
+    "Cambria Math"
+   ],
+   "cloneFrom": "Caladea",
+   "note": "Caladea (metric-compatible with Cambria) + Vietnamese letters from Tinos",
+   "sources": [
+    "pack:Caladea",
+    "pack:Tinos"
+   ],
+   "sha256": {
+    "Regular": "825912458e38114b6fb650eddefbd99c84655ea4af35f59f56157537a84c49ca",
+    "Bold": "714db23331c2d21f60b1cb0fe6417322f8adef34ad6c7ace85fdf86a8742f6d3",
+    "Italic": "77d8ac50b824e6c0a7d4a71d27976be130ff348f936432be8739a42271ea4ef9",
+    "BoldItalic": "623a0262980d097f42784b004402c6f4c0f9d5637b189ae5aebcc909eb400b8d"
+   }
+  },
+  "WasmTahoma": {
+   "files": {
+    "Regular": "WasmTahoma-Regular.ttf",
+    "Bold": "WasmTahoma-Bold.ttf",
+    "Italic": "WasmTahoma-Italic.ttf",
+    "BoldItalic": "WasmTahoma-BoldItalic.ttf"
+   },
+   "aliases": [
+    "Tahoma"
+   ],
+   "cloneFrom": "Roboto",
+   "note": "Roboto with the line height of Tahoma (closest font with all Vietnamese letters)",
+   "sources": [
+    "pack:Roboto"
+   ],
+   "sha256": {
+    "Regular": "bb8b23060514bd4e7674867e26930dfc163e7af92185af03733511ef59ef12eb",
+    "Bold": "eaf692d9036443a07a26002d7e6d54d298067d3c2e5b53adc4775f3e0d684b01",
+    "Italic": "e8a424a3efcbd363c873185bdc3c44f3792a11624f32fee4ae1f2496f214f37a",
+    "BoldItalic": "b236e0c467394e3d98ed309ce687de2c3d7bef9e74d4feb650d2169ebe148fac"
+   }
+  },
+  "WasmVerdana": {
+   "files": {
+    "Regular": "WasmVerdana-Regular.ttf",
+    "Bold": "WasmVerdana-Bold.ttf"
+   },
+   "aliases": [
+    "Verdana"
+   ],
+   "cloneFrom": "DejaVu Sans",
+   "note": "DejaVu Sans with the line height of Verdana (closest font with all Vietnamese letters)",
+   "sources": [
+    "pack:DejaVu Sans"
+   ],
+   "sha256": {
+    "Regular": "dc5e2ef4f0cb52ec0c8fd2eb009e13d8bc02734b9484b6eab8e07b9597301ec6",
+    "Bold": "8508d491786491fd0dfe9224c2c6421606e0ecdfb71d5c70b71c7cef35edd4f9"
+   }
+  }
+ }
+}
