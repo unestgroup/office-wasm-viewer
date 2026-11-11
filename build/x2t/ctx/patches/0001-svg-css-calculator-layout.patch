@@ -1,0 +1,18 @@
+diff --git a/DesktopEditor/graphics/pro/metafile.pri b/DesktopEditor/graphics/pro/metafile.pri
+index f9070736..8827ea1e 100644
+--- a/DesktopEditor/graphics/pro/metafile.pri
++++ b/DesktopEditor/graphics/pro/metafile.pri
+@@ -151,6 +151,13 @@ METAFILE_PATH = $$PWD/../../raster/Metafile
+ 
+ 		CONFIG += css_calculator_without_xhtml
+ 
++		# Static (wasm) link: the sources of the CSS calculator are not compiled into this library (the Dockerfile
++		# removes them from CssCalculator.pri), the only linked copy is the one of HtmlFile2, built with
++		# CSS_CALCULATOR_WITH_XHTML. The SVG code here must see the same class layouts (CCssCalculator_Private,
++		# CStyleStorage, CNode); without the define, CSvgCalculator allocates a too small CCssCalculator_Private
++		# and every metafile (WMF/EMF/SVG) corrupts the heap.
++		DEFINES += CSS_CALCULATOR_WITH_XHTML
++
+ 		include($$METAFILE_PATH/../../../Common/3dParty/html/css/CssCalculator.pri)
+ 	}
+ }

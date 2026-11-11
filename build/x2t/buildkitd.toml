@@ -1,0 +1,5 @@
+# BuildKit settings of the x2t builder (see build.mjs, ensureBuilder).
+# The Dockerfile has about 45 stages and BuildKit runs every ready stage at once, each with `make -j$X2T_JOBS`.
+# Two stages at a time keeps the compilers within the memory limit of the builder.
+[worker.oci]
+  max-parallelism = 2
