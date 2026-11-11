@@ -1,0 +1,18 @@
+{
+  "name": "office-wasm-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "description": "Offline Office viewer/editor, PDF export and conversion on x2t.wasm + sdkjs (AGPL part of office-wasm)",
+  "scripts": {
+    "serve": "node tools/serve.cjs",
+    "smoke:x2t": "node tools/x2t-smoke.cjs",
+    "build:x2t:st": "node build/x2t/build.mjs st",
+    "build:x2t:mt": "node build/x2t/build.mjs mt",
+    "font-pack": "node tools/font-pack.cjs",
+    "font-pack:check": "node tools/font-pack.cjs --check",
+    "build:vn-orig-patch": "fonts/math-src/.venv/Scripts/python.exe -I fonts/vn-src/patch-vn-originals.py fonts/vn-orig fonts/vn fonts/vn-orig/patched",
+    "build:metric-fonts": "fonts/math-src/.venv/Scripts/python.exe -I fonts/metric-src/build-metric-fonts.py <download dir> fonts/metric",
+    "build:math-fonts": "fonts/math-src/.venv/Scripts/python.exe -I fonts/math-src/build-math-fonts.py --stix fonts/math-src/.cache/stix/STIXTwoMath-Regular.ttf --afm fonts/math-src/afm/Symbol.afm --out fonts/math"
+  }
+}

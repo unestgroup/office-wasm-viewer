@@ -1,0 +1,10 @@
+node_modules/
+.claude/task-briefs/
+*.log
+artifacts/
+upstream/
+out/
+build/x2t/.gen/
+fonts/math-src/.venv/
+fonts/math-src/.cache/
+__pycache__/
