@@ -1,0 +1,17 @@
+{
+ "basedOn": "Tinos",
+ "fonts": {
+  ".VnTime": {
+   "Regular": "VnTime-Regular.ttf",
+   "Bold": "VnTime-Bold.ttf",
+   "Italic": "VnTime-Italic.ttf",
+   "BoldItalic": "VnTime-BoldItalic.ttf"
+  },
+  ".VnTimeH": {
+   "Regular": "VnTimeH-Regular.ttf",
+   "Bold": "VnTimeH-Bold.ttf",
+   "Italic": "VnTimeH-Italic.ttf",
+   "BoldItalic": "VnTimeH-BoldItalic.ttf"
+  }
+ }
+}

@@ -1,0 +1,17 @@
+{
+  "source": "ABC (Ho Ngoc Duc) abcwin.zip, vnsfont2.zip, vnsfont3.zip",
+  "fonts": {
+    ".VnTime": {
+      "Regular": "VNTIME.TTF",
+      "Bold": "VNTIMEB.TTF",
+      "Italic": "VNTIMEI.TTF",
+      "BoldItalic": "VNTIMEBI.TTF"
+    },
+    ".VnTimeH": {
+      "Regular": "VHTIME.TTF",
+      "Bold": "VHTIMEB.TTF",
+      "Italic": "VHTIMEI.TTF",
+      "BoldItalic": "VHTIMEBI.TTF"
+    }
+  }
+}
