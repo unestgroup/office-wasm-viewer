@@ -1,0 +1,29 @@
+# Example: nginx serving the packed site (the "site" directory, or all layers extracted into one directory).
+# The viewer runs on its OWN origin (own host name), embedded by your application in an <iframe>.
+server {
+  listen 443 ssl;
+  server_name viewer.example.com;
+  root /var/www/office-wasm-viewer;
+
+  # .wasm must have this type; the pack ships .br next to the big files (brotli_static needs ngx_brotli;
+  # without it the plain files are served and everything still works, only larger).
+  types { application/wasm wasm; }
+  brotli_static on;
+  gzip_static on;
+
+  add_header X-Content-Type-Options nosniff always;
+  # Pages allowed to embed the viewer. 'self' is required: the editor runs in a frame of the viewer page.
+  # To change the domains edit this one line ("*.x" matches subdomains only, so list the bare domain too) and `nginx -s reload`.
+  # (tools/serve.cjs --config <file> reads the same list from a JSON file, no reload needed.)
+  add_header Content-Security-Policy "frame-ancestors 'self' https://educora.vn https://*.educora.vn https://mschool.vn https://*.mschool.vn" always;
+
+  # Only for the multi-threaded x2t build (the embedding page must be isolated too, see README):
+  # add_header Cross-Origin-Opener-Policy same-origin always;
+  # add_header Cross-Origin-Embedder-Policy require-corp always;
+  # add_header Cross-Origin-Resource-Policy cross-origin always;
+
+  location = /index.html { add_header Cache-Control "no-cache"; }
+  location = /x2t-info.json { add_header Cache-Control "no-cache"; }
+  # Everything else changes only with a new version: version the directory (/v0.1.0/) and cache hard.
+  location / { add_header Cache-Control "public, max-age=3600"; }
+}

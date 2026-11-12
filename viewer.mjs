@@ -127,6 +127,8 @@ function disposeDoc() {
 async function openDocument(name, bytes, mode = 'embedded', timeoutMs = 120000, localFonts = null) {
   const docType = docTypeOf(name);
   if (!docType) throw new Error('unsupported file type: ' + name);
+  // A site packed for some editors only (tools/pack.mjs --apps) lists them in x2t-info.json: say so at once instead of timing out.
+  if (Array.isArray(x2tInfo.apps) && !x2tInfo.apps.includes(docType)) throw new Error(`this viewer serves only ${x2tInfo.apps.join('/')} documents, not ${docType}: ${name}`);
   disposeDoc();
   const seq = ++openSeq;
   const stale = () => seq !== openSeq;

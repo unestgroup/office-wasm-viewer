@@ -1,0 +1,16 @@
+# Example: Caddy serving the packed site. Caddy picks the precompressed .br files with `precompressed`.
+viewer.example.com {
+	root * /var/www/office-wasm-viewer
+	file_server {
+		precompressed br gzip
+	}
+	header {
+		X-Content-Type-Options nosniff
+		# 'self' is required: the editor runs in a frame of the viewer page. Change the domains here ("*.x" matches subdomains only: list the bare domain too).
+		Content-Security-Policy "frame-ancestors 'self' https://educora.vn https://*.educora.vn https://mschool.vn https://*.mschool.vn"
+		# Only for the multi-threaded x2t build:
+		# Cross-Origin-Opener-Policy same-origin
+		# Cross-Origin-Embedder-Policy require-corp
+		# Cross-Origin-Resource-Policy cross-origin
+	}
+}

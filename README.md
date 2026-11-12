@@ -35,7 +35,9 @@ this code.
 
 ## Serving
 
-`node tools/serve.cjs [port] [--coi] [--frame-ancestors "'self' https://app.example"]` serves the site below.
+`node tools/serve.cjs [port] [--coi] [--config viewer.config.json]` serves the site below. The config file lists the pages that may embed the viewer
+(`{"frameAncestors": ["https://educora.vn", "https://*.educora.vn"]}`, example in `deploy/viewer.config.example.json`); edit it to change the domains,
+the server re-reads it within 2 s. `*.x` matches subdomains only, so list `x` too. `--print-headers` shows the resulting header.
 Every URL used by the viewer is relative, so it can be deployed under any path of a static host.
 
 ```
@@ -54,7 +56,7 @@ Multi-threaded build: only used when the viewer page is cross-origin isolated. S
 `Cross-Origin-Opener-Policy: same-origin` for direct use); the embedding page must itself be isolated and give the
 frame `allow="cross-origin-isolated"`. Otherwise the single-threaded build is used (same speed for x2t 9.3.2).
 
-The editor runs in a frame of the viewer page, so `frame-ancestors` must include `'self'`.
+The editor runs in a frame of the viewer page, so `frame-ancestors` must include `'self'` (the server adds it by itself).
 
 ## Messages
 
@@ -100,6 +102,13 @@ so Arial installed or not gives the same result. For fidelity with Word on Windo
 
 Deploy list: add `fonts/local-fonts.mjs` and `fonts/metric/` (copied into the font pack by `tools/font-pack.cjs`); re-run
 `node tools/font-pack.cjs` after each rebuild of the pack (restart `tools/serve.cjs`, which caches the font list).
+
+## Packaging
+
+`npm run pack -- --source-url <url>` builds the deployable packages: layers `core`, `editor`, `engine-st|mt|prebuilt` (directories and `.tar.gz`, each with manifest, SHA256SUMS, SOURCE.txt),
+the merged `site/`, and example server headers in `deploy/`. Options trim the editor by app, language and dictionaries (`--apps word`, `--langs en,vi`, `--dicts en_US`).
+`npm run pack:verify -- <dir>` checks the files against the sha256 lists; `node tools/serve.cjs --site <dir>` serves a packed site.
+Who may use a hosted copy (allowed domains, signed URLs): `docs/packaging.md`, "Access control". Details, release procedure and checks: `docs/packaging.md`.
 
 ## AGPL obligations when you deploy it
 

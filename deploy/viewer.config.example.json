@@ -1,0 +1,8 @@
+{
+  "frameAncestors": [
+    "https://educora.vn",
+    "https://*.educora.vn",
+    "https://mschool.vn",
+    "https://*.mschool.vn"
+  ]
+}
