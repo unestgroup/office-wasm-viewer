@@ -33,6 +33,9 @@ no two layers contain the same path. `site/` and `office-wasm-viewer-site-<v>.ta
 | `engine-st` | `wasm/st/` x2t.wasm single-threaded | 56 MB (19 MB gz) |
 | `engine-mt` | `wasm/mt/` x2t.wasm with pthreads | 57 MB (19 MB gz) |
 | `engine-prebuilt` | `wasm/prebuilt/` x2t.wasm from CryptPad | 43 MB (16 MB gz) |
+| `metafile` | `metafile/` metafile.wasm + worker from the sibling repo `metafile-wasm` (AGPL-3.0-only), for `metafile.html` (core): WMF/EMF → PNG over `postMessage`, fonts from `oo/fonts/fonts/` and `fonts/math/` | 6.7 MB |
+
+`metafile.html` lets an application turn the WMF/EMF pictures of a Word file into PNG without linking the converter (protocol at the top of `metafile.mjs`). The layer needs `core` + `editor` (fonts). Options: `--metafile <dir>` (default `../metafile-wasm` or env `METAFILE_WASM`), `--metafile-source-url <url>` (its AGPL source URL, written into `SOURCE.txt`), `--no-metafile`. The tool refuses uncommitted changes in `metafile-wasm/src/`.
 
 Each layer also carries `_pack/<layer>/{manifest.json, SHA256SUMS, SOURCE.txt}`: file list with sizes and sha256, the licence of
 the layer, where the source of exactly this version is, and what upstream it comes from.

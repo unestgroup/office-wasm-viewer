@@ -12,6 +12,8 @@
 //   engine-st       wasm/st/        x2t.wasm single-threaded (our build)
 //   engine-mt       wasm/mt/        x2t.wasm with pthreads (only used when the page is cross-origin isolated)
 //   engine-prebuilt wasm/prebuilt/  x2t.wasm of CryptPad
+//   metafile        metafile/  metafile.wasm + JS from the sibling repository metafile-wasm (WMF/EMF -> PNG for metafile.html,
+//                   which is in core); --metafile <dir> (default ../metafile-wasm), --metafile-source-url <url>, --no-metafile
 // A deployment needs core + editor + at least one engine. x2t-info.json (in core) lists the engines that were packed:
 // edit it when you deploy fewer.
 //
@@ -65,6 +67,8 @@ const o = {
   site: !flag('no-site'),
   archive: !flag('no-archive'),
   allowDirty: flag('allow-dirty'),
+  metafile: flag('no-metafile') ? null : path.resolve(ROOT, opt('metafile', process.env.METAFILE_WASM || '../metafile-wasm')),
+  metafileSourceUrl: opt('metafile-source-url', ''),
 };
 if (flag('help') || flag('h')) { console.log(fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n').filter((l) => l.startsWith('//')).map((l) => l.slice(3)).join('\n')); process.exit(0); }
 
@@ -223,6 +227,10 @@ const engineFor = Object.fromEntries(Object.keys(ENGINES).map((e) => [e, o.engin
     html = html.replace(re, '$1' + o.sourceUrl.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '$2');
   }
   L.put('index.html', html);
+  let mfHtml = fs.readFileSync(path.join(ROOT, 'metafile.html'), 'utf8');
+  if (o.sourceUrl) mfHtml = mfHtml.replace(/(<meta name="office-wasm-viewer:source" content=")[^"]*(")/, '$1' + o.sourceUrl.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '$2');
+  L.put('metafile.html', mfHtml);
+  L.copy(path.join(ROOT, 'metafile.mjs'), 'metafile.mjs');
   for (const f of ['viewer.mjs', 'LICENSE', 'NOTICE.md', 'fonts/math-compat.mjs', 'fonts/local-fonts.mjs']) L.copy(path.join(ROOT, f), f);
   L.copyTree(path.join(ROOT, 'x2t'), 'x2t/');
   L.copyTree(path.join(ROOT, 'fonts', 'math'), 'fonts/math/');
@@ -288,6 +296,33 @@ for (const e of o.engines) {
   const L = new Layer('engine-' + e, `x2t.wasm ${e} (${urlDir}/)`);
   L.copyTree(path.join(ART, artDir), urlDir + '/', (r) => ENGINE_FILES.test(r));
   L.finish({ license: 'AGPL-3.0', requires: ['core'], source: sourceText('engine-' + e, [...ENGINE_TEXT[e], 'Upstream: https://github.com/Euro-Office/core, https://github.com/ONLYOFFICE/core.']) });
+  layers.push(L);
+}
+
+// metafile (WMF/EMF -> PNG page): files of the sibling repository at their URL paths under metafile/
+if (o.metafile) {
+  const MF_SRC = ['metafile-client.mjs', 'metafile-worker.js', 'metafile-core.js', 'metafile-math.js'];
+  const MF_ART = /^metafile\.(js|wasm)(\.br)?$/;
+  const artDir = path.join(o.metafile, 'artifacts', 'metafile-st');
+  for (const f of MF_SRC) if (!fs.existsSync(path.join(o.metafile, 'src', f))) fail(`missing ${path.join(o.metafile, 'src', f)} (sibling repo metafile-wasm; --metafile <dir> or --no-metafile)`);
+  if (!fs.existsSync(path.join(artDir, 'metafile.wasm'))) fail(`missing ${artDir}/metafile.wasm (npm run build in metafile-wasm)`);
+  const mfSh = (args) => { const r = spawnSync('git', args, { cwd: o.metafile, encoding: 'utf8' }); return r.status === 0 ? r.stdout.trim() : ''; };
+  const mfCommit = mfSh(['rev-parse', 'HEAD']);
+  const mfDirty = mfCommit ? mfSh(['status', '--porcelain', '--untracked-files=no', '--', 'src']) !== '' : true;
+  if (mfDirty && !o.allowDirty) fail('metafile-wasm: src/ has uncommitted changes (or is not a git checkout). Commit there first, or --allow-dirty.');
+  const L = new Layer('metafile', 'metafile.wasm (WMF/EMF/EMF+ -> PNG) and its worker, for metafile.html');
+  for (const f of MF_SRC) L.copy(path.join(o.metafile, 'src', f), 'metafile/src/' + f);
+  L.copyTree(artDir, 'metafile/artifacts/metafile-st/', (r) => MF_ART.test(r));
+  L.copy(path.join(o.metafile, 'LICENSE'), 'metafile/LICENSE');
+  L.finish({
+    license: 'AGPL-3.0-only', requires: ['core', 'editor'],
+    source: sourceText('metafile', [
+      'metafile.wasm and its JS come from the metafile-wasm repository (AGPL-3.0-only, ONLYOFFICE core 9.3.2 with patches).',
+      `metafile-wasm source: ${o.metafileSourceUrl || '(not set: pack with --metafile-source-url <url>)'}`,
+      `metafile-wasm commit: ${mfCommit || '(unknown)'}${mfDirty ? '  (src/ had uncommitted changes)' : ''}`,
+      'metafile.html (core layer) loads the fonts of the editor layer (oo/fonts/fonts/) and fonts/math/.',
+    ]),
+  });
   layers.push(L);
 }
 

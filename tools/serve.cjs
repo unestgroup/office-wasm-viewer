@@ -22,6 +22,8 @@
 //   /wasm/st/...         artifacts/x2t-st/  (our build, single-threaded)
 //   /wasm/mt/...         artifacts/x2t-mt/  (our build, pthreads; only usable when cross-origin isolated)
 //   /x2t-info.json       which builds exist and whether --coi is on
+//   /metafile.html       WMF/EMF -> PNG converter page (metafile.mjs)
+//   /metafile/src/...    ../metafile-wasm/src/ (or env METAFILE_WASM), /metafile/artifacts/metafile-st/... its wasm build
 //   /fonts-manifest.json font files of the pack (loaded into x2t for PDF output)
 //   /server-stats.json   request and byte counters (tests)
 // SPDX-License-Identifier: AGPL-3.0-or-later
@@ -36,7 +38,8 @@ const { parseOrigins, readConfig } = require('./access-policy.cjs');
 
 const ROOT = path.resolve(__dirname, '..');
 const ART = path.join(ROOT, 'artifacts');
-const FILES = { '/': 'index.html', '/index.html': 'index.html', '/viewer.mjs': 'viewer.mjs', '/fonts/math-compat.mjs': 'fonts/math-compat.mjs', '/fonts/local-fonts.mjs': 'fonts/local-fonts.mjs', '/LICENSE': 'LICENSE', '/NOTICE.md': 'NOTICE.md' };
+const METAFILE = path.resolve(process.env.METAFILE_WASM || path.join(ROOT, '..', 'metafile-wasm'));
+const FILES = { '/': 'index.html', '/index.html': 'index.html', '/viewer.mjs': 'viewer.mjs', '/fonts/math-compat.mjs': 'fonts/math-compat.mjs', '/fonts/local-fonts.mjs': 'fonts/local-fonts.mjs', '/metafile.html': 'metafile.html', '/metafile.mjs': 'metafile.mjs', '/LICENSE': 'LICENSE', '/NOTICE.md': 'NOTICE.md' };
 const MOUNTS = [
   ['/x2t/', path.join(ROOT, 'x2t')],
   ['/fonts/math/', path.join(ROOT, 'fonts', 'math')],
@@ -44,6 +47,9 @@ const MOUNTS = [
   ['/wasm/prebuilt/', path.join(ART, 'x2t')],
   ['/wasm/st/', path.join(ART, 'x2t-st')],
   ['/wasm/mt/', path.join(ART, 'x2t-mt')],
+  // metafile.html: metafile.wasm and its JS from the sibling repository (env METAFILE_WASM to point elsewhere)
+  ['/metafile/src/', path.join(METAFILE, 'src')],
+  ['/metafile/artifacts/metafile-st/', path.join(METAFILE, 'artifacts', 'metafile-st')],
 ];
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8',
