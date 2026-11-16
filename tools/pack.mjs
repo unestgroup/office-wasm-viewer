@@ -240,6 +240,17 @@ const engineFor = Object.fromEntries(Object.keys(ENGINES).map((e) => [e, o.engin
 {
   const L = new Layer('editor', 'sdkjs + web-apps + font pack + dictionaries (CryptPad build of the ONLYOFFICE/Euro-Office editor), trimmed');
   L.copyTree(editorDir, 'oo/', keepEditor);
+  // The embed pages of the CryptPad build still hold `<script src="@@SRC_ROOT@@/...?__inline=true">` lines: the upstream
+  // build inlines those helpers, this build neither inlines nor ships them, so every page load got three 404s. Drop the
+  // lines (behaviour unchanged: the files never loaded) and rewrite the precompressed sibling so .br-first servers agree.
+  for (const rel of [...L.files.keys()]) {
+    if (!/^oo\/web-apps\/apps\/[^/]+\/embed\/[^/]+\.html$/.test(rel)) continue;
+    const src = fs.readFileSync(path.join(L.dir, rel), 'utf8');
+    if (!src.includes('@@SRC_ROOT@@')) continue;
+    const html = src.split('\n').filter((line) => !line.includes('@@SRC_ROOT@@')).join('\n');
+    L.put(rel, html);
+    if (L.files.has(rel + '.br')) L.put(rel + '.br', brotli(Buffer.from(html)));
+  }
   // The font list with the alias names (Times New Roman -> Tinos, ...): what tools/serve.cjs computes per request. The
   // precompressed sibling must follow, a server that prefers .br would otherwise hand out the old list.
   const aliased = addFontAliases(allFontsSrc);
